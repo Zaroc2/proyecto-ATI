@@ -82,6 +82,7 @@ section h1 {
     margin: 0px 100px 0px 100px;
     padding-bottom: 40px;
     border-radius: 30px;
+    transition: transform 0.5s ease, background-color 0.5s ease;
 }
 
 .perfil h2 {
@@ -90,6 +91,11 @@ section h1 {
     margin: 0px;
     padding: 10px 0px;
     text-align: center;
+}
+
+.perfil:hover {
+        transform: rotate(20deg) scale(1.25);
+        background-color: var(--accent-color);
 }
 
 
