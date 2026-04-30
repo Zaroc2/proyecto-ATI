@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" sizes="32x32" href="/icon/cropped-logonuevo-32x32.png">
+    <link rel="icon" sizes="192x192" href="/icon/cropped-logonuevo-192x192.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Mauricio González</title>
+
+    <style>
+
+        @import "/css/_theme.css";
+
+        body {
+            font-family: var(--primary-font);
+        }
+
+        section {
+            display: flex;
+            height:  98vh;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 40px;
+            color: var(--main-color);
+        }
+
+        #imagen {
+            padding: 0px 10px 0px 0px;
+            background: var(--main-color);
+            margin-right: 20px;
+            width: 200vw;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-bottom-right-radius: 80px;
+        }
+
+        #breve-descripcion-de-mi-persona {
+            font-style: italic;
+            font-family: var(--flex-font);
+        }
+
+        p {
+            font-weight: 700;
+        }
+
+        a:active{
+            color: var(--accent-color);
+        }      
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/index.html"><h1>ATI<sub>[UCV]</sub>Log</h1></a>
+            <input id="searchBar" type="search" placeholder="Nombre...">
+            <input id="searchButton" type="submit" value="Buscar">
+            <button><img src="icon/userIcon.svg"></button>
+        </nav>
+    </header>
+
+    <section>
+
+        <div id="imagen"><img src="30722334.jpeg" alt="Mauricio González"></div>
+        
+        <div id="informacion">
+            <h1>Mauricio González</h1>
+            <p id="breve-descripcion-de-mi-persona">
+                En un lugar de la mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivia un hacendado rural 
+                llamado "Alonso Quijano", frisaba la edad de nuestro por los 50 años, era de complexión recia, seco de carnes, 
+                enjuto de rostro, y la mirada consumida por un fuego interior. Los ratos que andaba ocioso (que eran los más del año)
+                 se daba a leer libros de caballerías, y tanto se enfrascó en su lectura que se le pasaban las noches leyendo, 
+                 de claro en claro y los días de turbio en turbio, y así del poco dormir y del mucho leer y pensar se le secó el cerebro, 
+                 y rematado ya su juicio vino a dar en el más extraño pensamiento que diera a loco en el mundo:
+                 Hacerse caballero andante e ir por toda la tierra buscando aventuras y deshaciendo todo tipo de agravios.
+                 Ya nunca más volvería a ser "Alonso Quijano" a secas si no el intrépido caballero conocido como "Don Quijote de la Mancha".
+            </p>
+            <ul>
+                <li>Mi color favorito: Gris</li>
+                <li>Mi libro favorito: Elantris - Brandon Sanderson o 1984 - George Orwell</li>
+                <li>Mi género musical favorito: Rock</li>
+                <li>Mi videojuego favorito: Minecraft</li>
+                <li>Lenguajes aprendidos: C/C++, Python, JavaScript, Java, Prolog, Haskell</li>
+            </ul>  
+            <p>Si necesitan comunicarse conmigo me pueden escribir a: <a href="mailto:mauriciogonzalez1256gmail.com">mauriciogonzalez1256gmail.com</a></p>
+        </div>
+        
+
+    </section>
+
+    <footer>
+        <p>Copyright &copy; 2026 Escuela de computación - ATI. Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>
