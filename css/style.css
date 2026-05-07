@@ -14,7 +14,6 @@ header {
 
     h1 {
        color: var(--white);
-        margin: 30px 100px 30px 100px;
         font-size: 3em; 
     }
 
@@ -26,23 +25,34 @@ header {
 nav {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 100px 0px 100px;
+}
+
+#barraBusqueda {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    width: 35%;
 }
 
 #searchBar {
-    margin: 30px 0px 30px 280px;
-    padding: 5px;
+    flex: 1;
+    padding: 10px;
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
-    width: 20vw;
+    margin-right: 0px;
+    width: auto;
     border: none;
 }
 
 #searchButton {
-    margin: 30px 280px 30px 0px;
     padding: 10px;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
-    width: 5vw;
+    margin-left: 0px;
+    width: auto;
     border: none;
     background-color: var(--accent-color);
     color: var(--white);
@@ -53,11 +63,6 @@ button {
     border: none;
     border-radius: 100%;
     padding: 20px;
-    margin: 30px 10px 30px 200px;
-}
-
-section h1 {
-    margin: 25px 0px 0px 80px;
 }
 
 #perfiles {
