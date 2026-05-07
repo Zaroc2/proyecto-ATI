@@ -1,6 +1,8 @@
 @import "/css/_theme.css";
 body {
     margin: 0%;
+    font-family: var(--primary-font);
+    background-color: var(--grey-50);
 }
 
 header {
@@ -8,20 +10,22 @@ header {
     border-bottom: 1px solid;
     background-color: var(--main-color);
     font-family: var(--condensed-font);
+
+
+    h1 {
+       color: var(--white);
+        margin: 30px 100px 30px 100px;
+        font-size: 3em; 
+    }
+
+    sub{
+        font-size: 0.5em;
+    }
 }
 
 nav {
     display: flex;
-}
-
-header h1 {
-    color: var(--white);
-    margin: 30px 100px 30px 100px;
-    font-size: 3em;
-}
-
-header sub {
-    font-size: 0.5em;
+    flex-wrap: wrap;
 }
 
 #searchBar {
@@ -52,61 +56,127 @@ button {
     margin: 30px 10px 30px 200px;
 }
 
-body, section {
-    background-color: var(--grey-50);
-    font-family: var(--primary-font);
-}
-
 section h1 {
     margin: 25px 0px 0px 80px;
 }
 
 #perfiles {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));;
     gap: 30px;
     margin: 25px 80px 40px 80px;
 }
 
-.perfil img {
-    width: 100%;
-    height: 300px;
-    border-radius: 30px 30px 0px 0px;
-}
 
 .perfil {
     background-color: var(--main-color);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0px 100px 0px 100px;
+    margin: 0px 10px 0px 10px;
     padding-bottom: 40px;
     border-radius: 30px;
     transition: transform 0.5s ease, background-color 0.5s ease;
-}
 
-.perfil h2 {
-    background-color: var(--white);
-    width: 100%;
-    margin: 0px;
-    padding: 10px 0px;
-    text-align: center;
-}
+    img {
+        width: 100%;
+        height: 300px;
+        border-radius: 30px 30px 0px 0px;
+    }
 
-.perfil:hover {
+    h2 {
+        background-color: var(--white);
+        width: 100%;
+        margin: 0px;
+        padding: 10px 0px;
+        text-align: center;
+    }
+
+    &:hover {
         transform: rotate(20deg) scale(1.25);
         background-color: var(--accent-color);
+    }
 }
+
 
 
 footer {
     border-color: var(--gray-600);
     border-top-color: red;
     border-top: 1px solid;
+
+    p {
+        color: var(--grey-400);
+        text-align: center;
+        margin: 20px 0px 20px 0px;
+    }
 }
 
-footer p {
-    color: var(--grey-400);
-    text-align: center;
-    margin: 20px 0px 20px 0px;
+
+
+/*# PROFILE HTML */
+
+.contenedorPerfil {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    margin: 0px 0px 20px 0px;
+}
+
+h1 {
+    font-size: 40px;
+    color: var(--main-color);
+}
+
+#imagenPerfil {
+    flex: 1;
+    padding: 0px 10px 0px 0px;
+    background: var(--main-color);
+    margin-right: 20px;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        border-bottom-right-radius: 80px;
+    }
+}
+
+#informacion{
+    flex: 2;          
+    min-width: 200px;
+}
+
+
+#breve-descripcion-de-mi-persona {
+    font-style: italic;
+    font-family: var(--flex-font);
+}
+
+p {
+    font-weight: 700;
+}
+
+a:active{
+    color: var(--accent-color);
+}    
+
+/* Móviles: 320px - 480px */
+@media (max-width: 480px) { 
+
+ }
+
+/* Tablets: 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) { 
+
+ }
+
+/* Portátiles pequeños: 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) { 
+
+}
+
+/* Escritorio grande: 1025px - 1200px (opcional, casi igual al base) */
+@media (min-width: 1025px) and (max-width: 1200px) {
+    
 }
