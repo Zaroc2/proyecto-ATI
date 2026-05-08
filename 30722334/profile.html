@@ -16,13 +16,21 @@
                 <input id="searchBar" type="search" placeholder="Nombre...">
                 <input id="searchButton" type="submit" value="Buscar">
             </div>
-            <button><img src="icon/userIcon.svg"></button>
+            <button id="mobileMenu"><img src="/icon/menuIcon.svg"></button>
+            <button id="botonUsuario"><img src="/icon/userIcon.svg"></button>
         </nav>
     </header>
 
     <section class="contenedorPerfil">
 
-        <div id="imagenPerfil"><img src="30722334.jpeg" alt="Mauricio González"></div>
+        <div id="imagenPerfil">
+            
+            <picture>
+                <source media="(max-width: 480px)" srcset="/30722334/30722334Small.jpeg">
+                <source media="(min-width: 481px)" srcset="/30722334/30722334Big.jpeg">
+                <img src="/30722334/30722334Big.jpeg" alt="Mauricio González">
+            </picture>
+        </div>
         
         <div id="informacion">
             <h1>Mauricio González</h1>
