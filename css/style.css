@@ -193,7 +193,6 @@ a:active{
     nav {
 
         display: flex;
-        flex-direction: row;
         padding: 0px 20px 0px 20px;
 
         button {
@@ -226,12 +225,29 @@ a:active{
 
 /* Tablets: 481px - 768px */
 @media (min-width: 481px) and (max-width: 768px) { 
+    #barraBusqueda {
+        display: none;
+    }
+    #botonUsuario {
+        display: none;
+    }
+    nav {
 
+        display: flex;
+        padding: 0px 20px 0px 20px;
+
+        button {
+            background-color: transparent;
+        }
+
+    }
  }
 
 /* Portátiles pequeños: 769px - 1024px */
 @media (min-width: 769px) and (max-width: 1024px) { 
-
+    #mobileMenu {
+        display: none;
+    }
 }
 
 /* Escritorio grande: 1025px - 1200px (opcional, casi igual al base) */
