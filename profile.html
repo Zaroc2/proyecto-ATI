@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" sizes="32x32" href="/icon/cropped-logonuevo-32x32.png">
     <link rel="icon" sizes="192x192" href="/icon/cropped-logonuevo-192x192.png">
+    <script type="text/javascript" src="/conf/configES.json"></script>
     <link rel="stylesheet" href="/css/style.css">
-    <title>Mauricio González</title>
+    <script src="/js/profile.js" defer></script>
+    <title></title>
 </head>
 <body>
     <header>
         <nav>
-            <a href="/index.html"><h1>ATI<sub>[UCV]</sub>Log</h1></a>
+            <a href="/index.html"><h1 id="appTitle"></h1></a>
             <div id="barraBusqueda">
-                <input id="searchBar" type="search" placeholder="Nombre...">
-                <input id="searchButton" type="submit" value="Buscar">
+                <input id="searchBar" type="search">
+                <button id="searchButton" type="submit"></button>
             </div>
             <button id="mobileMenu"><img src="/icon/menuIcon.svg"></button>
             <button id="botonUsuario"><img src="/icon/userIcon.svg"></button>
@@ -25,15 +27,10 @@
 
         <div id="imagenPerfil">
             
-            <picture>
-                <source media="(max-width: 480px)" srcset="">
-                <source media="(min-width: 481px)" srcset="">
-                <img src="" alt="">
-            </picture>
         </div>
         
         <div id="informacion">
-            <h1></h1>
+            <h1 id="title-name"></h1>
             <p id="breve-descripcion-de-mi-persona">
                 
             </p>
@@ -41,36 +38,36 @@
             <div id="gustos">
                 <table>
                     <tr>
-                        <td>Mi color favorito: </td>
-                        <td></td>
+                        <td id="favorite-color"></td>
+                        <td id="favorite-color-data"></td>
                     </tr>
                     <tr>
-                        <td>Mi libro favorito: </td>
-                        <td></td>
+                        <td id="favorite-book"></td>
+                        <td id="favorite-book-data"></td>
                     </tr>
                     <tr>
-                        <td>Mi género musical favorito: </td>
-                        <td></td>
+                        <td id="favorite-music"></td>
+                        <td id="favorite-music-data"></td>
                     </tr>
                     <tr>
-                        <td>Mi videojuego favorito: </td>
-                        <td></td>
+                        <td id="favorite-game"></td>
+                        <td id="favorite-game-data"></td>
                     </tr>
                     <tr>
-                            <td><strong>Lenguajes aprendidos:</strong> </td>
-                            <td><strong></strong></td>
+                            <td id="learnt-languages"><strong></strong> </td>
+                            <td id="learnt-languages-data"><strong></strong></td>
                     </tr>
 
                 </table>
             </div> 
-            <p>Si necesitan comunicarse conmigo me pueden escribir a: <a href="mailto:"></a></p>
+            <p id="email-contact"></p>
         </div>
         
 
     </section>
 
     <footer>
-        <p>Copyright &copy; 2026 Escuela de computación - ATI. Todos los derechos reservados</p>
+        <p id="footerText"></p>
     </footer>
 </body>
 </html>

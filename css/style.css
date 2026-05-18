@@ -22,11 +22,6 @@ header {
     }
 }
 
-section {
-    h1 {
-        margin-left: 95px;
-    }
-}
 
 nav {
     display: flex;
@@ -34,6 +29,10 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 0px 100px 0px 100px;
+}
+
+#semester{
+    margin-left: 95px;
 }
 
 #barraBusqueda {
