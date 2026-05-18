@@ -1,9 +1,9 @@
 const profiles = [
     {
         "ci": "30722334",
-        "image_ext": ".jpg",
+        "image_ext": ".jpeg",
         "name": "Mauricio Gonz\u00e1lez"
-    }
+    },
     {
         "ci": "29765263",
         "image_ext": ".jpg",
