@@ -13,12 +13,18 @@ header {
 
 
     h1 {
-       color: var(--white);
+        color: var(--white);
         font-size: 3em; 
     }
 
     sub{
         font-size: 0.5em;
+    }
+}
+
+section {
+    h1 {
+        margin-left: 95px;
     }
 }
 
@@ -49,6 +55,8 @@ nav {
 
 #searchButton {
     padding: 10px;
+    border-top-left-radius: 0px ;
+    border-bottom-left-radius: 0px ;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
     margin-left: 0px;
