@@ -2,6 +2,7 @@
 
 const urlParams = new URLSearchParams(window.location.search);
 let lang = urlParams.get("lang");
+let search = urlParams.get("search");
 
 if( lang === null )
     lang = 'ES';
@@ -11,6 +12,9 @@ else
 const confScript = document.createElement("script");
 
 confScript.src =  `/conf/config${lang}.json`
+
+let profilesCards;
+let noResultsText;
 
 confScript.onload = function() {
 
@@ -26,9 +30,10 @@ confScript.onload = function() {
 
     document.getElementById("footerText").innerHTML = config.copyRight;
 
+    noResultsText = config.results;
 
     const profilesContainer = document.getElementById("perfiles");
-    const profilesCards = profiles;
+    profilesCards = profiles;
 
     for (let i = 0; i < profilesCards.length; i++) {
         const profile = profilesCards[i];
@@ -45,6 +50,55 @@ confScript.onload = function() {
         }
     });
 
+    if(search !== null){
+        document.getElementById("searchBar").value = search;
+        searchProfile();
+    }
+    
 }
 
 document.head.appendChild(confScript);
+
+document.getElementById("searchButton").addEventListener("click", searchProfile);
+
+document.getElementById("searchBar").addEventListener("keyup",searchProfile);
+
+function searchProfile(){
+    
+    
+    let text = document.getElementById("searchBar").value;
+
+    if(text === ""){
+        for(let i=0; i<profilesCards.length; i++){
+            document.getElementById(`${profilesCards[i].ci}`).style.display = "";
+        }
+        return;
+    }
+        
+    let anyResults = false;
+
+    for(let i=0; i<profilesCards.length; i++){
+
+        if(!profilesCards[i].name.includes(text)){
+            document.getElementById(`${profilesCards[i].ci}`).style.display = "none";
+        }else{
+            document.getElementById(`${profilesCards[i].ci}`).style.display = "";
+            anyResults = true;
+        }
+
+    }
+
+
+    if(!anyResults){
+        document.getElementById("noResultsText").innerHTML = ` ${noResultsText} <strong> ${text} </strong> `;
+
+        console.log(document.getElementById("noResultsText").textContent);
+
+        document.getElementById("noResultsText").style.display = "";
+    }else{
+        document.getElementById("noResultsText").style.display = "none";
+    }
+
+    
+
+}

@@ -77,3 +77,9 @@ confScript.onload = function () {
 }
 
 document.head.appendChild(confScript);
+
+document.getElementById("searchButton").addEventListener("click",(event) => {
+
+    window.location.href = `index.html?lang=${lang}&search=${document.getElementById("searchBar").value}`
+
+})
