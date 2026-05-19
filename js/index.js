@@ -30,6 +30,8 @@ confScript.onload = function() {
 
     document.getElementById("footerText").innerHTML = config.copyRight;
 
+    document.getElementById("profileTextButton").innerHTML = config.profile;
+
     noResultsText = config.results;
 
     const profilesContainer = document.getElementById("perfiles");
@@ -92,13 +94,16 @@ function searchProfile(){
     if(!anyResults){
         document.getElementById("noResultsText").innerHTML = ` ${noResultsText} <strong> ${text} </strong> `;
 
-        console.log(document.getElementById("noResultsText").textContent);
-
         document.getElementById("noResultsText").style.display = "";
     }else{
         document.getElementById("noResultsText").style.display = "none";
     }
 
     
-
 }
+
+document.getElementById("mobileMenu").addEventListener("click",(event) => {
+
+    document.querySelector("nav").classList.toggle("menu-open");
+
+})

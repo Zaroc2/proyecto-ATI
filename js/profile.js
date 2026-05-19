@@ -27,6 +27,8 @@ confScript.onload = function () {
     document.getElementById("searchButton").innerHTML = config.search;
 
     document.getElementById("footerText").innerHTML = config.copyRight;
+
+    document.getElementById("profileTextButton").innerHTML = config.profile;
     
     const ci = urlParams.get("ci");
     const script = document.createElement("script");
@@ -81,5 +83,11 @@ document.head.appendChild(confScript);
 document.getElementById("searchButton").addEventListener("click",(event) => {
 
     window.location.href = `index.html?lang=${lang}&search=${document.getElementById("searchBar").value}`
+
+})
+
+document.getElementById("mobileMenu").addEventListener("click",(event) => {
+
+    document.querySelector("nav").classList.toggle("menu-open");
 
 })

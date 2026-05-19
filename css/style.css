@@ -214,6 +214,36 @@ td {
         display: none;
     }
 
+    nav.menu-open {
+        #barraBusqueda{
+            width: 100%;
+            border-top: 1px solid var(--white);
+            border-bottom: 1px solid var(--white);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        #botonUsuario{
+            display: flex;
+            gap: 15px;
+            margin-left: auto;
+            padding: 10px;
+            p {
+                color: var(--white);
+                font-size: 1.6em;
+                font-weight: 500;
+            }
+            img{
+                width: 35px;
+                height: 35px;
+                overflow: visible;
+                background-color: var(--accent-color);
+                padding: 10px;
+                border-radius: 100%;
+            }
+        }
+    }
+
     nav {
 
         display: flex;
@@ -259,6 +289,45 @@ td {
     #botonUsuario {
         display: none;
     }
+
+    nav.menu-open {
+        #barraBusqueda{
+            width: 100%;
+            border-top: 1px solid var(--white);
+            border-bottom: 1px solid var(--white);
+            padding: 10px;
+            display: flex;
+        }
+        #botonUsuario{
+            display: flex;
+            gap: 25px;
+            margin-left: auto;
+            p {
+                color: var(--white);
+                font-size: 1.6em;
+                font-weight: 500;
+
+            }
+            img{
+                width: 55px;
+                height: 55px;
+                overflow: visible;
+                background-color: var(--accent-color);
+                padding: 10px;
+                border-radius: 100%;
+            }
+        }
+    }
+
+    #mobileMenu{
+        width: 100px;
+        height: 100px;
+
+        img {
+            width: 50px;
+        }
+    }
+
     nav {
 
         display: flex;
@@ -296,6 +365,9 @@ td {
     #mobileMenu {
         display: none;
     }
+    #profileTextButton{
+        display: none;
+    }
     
 }
 
@@ -304,5 +376,7 @@ td {
     #mobileMenu {
         display: none;
     }
-
+    #profileTextButton{
+            display: none;
+        }
 }
