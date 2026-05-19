@@ -13,7 +13,7 @@ header {
 
 
     h1 {
-       color: var(--white);
+        color: var(--white);
         font-size: 3em; 
     }
 
@@ -22,12 +22,19 @@ header {
     }
 }
 
+
 nav {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     padding: 0px 100px 0px 100px;
+}
+
+
+#semester{
+    margin-left: 95px;
+    color: var(--grey-800);
 }
 
 #barraBusqueda {
@@ -49,6 +56,8 @@ nav {
 
 #searchButton {
     padding: 10px;
+    border-top-left-radius: 0px ;
+    border-bottom-left-radius: 0px ;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
     margin-left: 0px;
@@ -67,7 +76,7 @@ button {
 
 #perfiles {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));;
     gap: 30px;
     margin: 25px 80px 40px 80px;
 
@@ -80,6 +89,13 @@ button {
         height: 300px;
         border-radius: 30px 30px 0px 0px;
     }
+}
+
+#noResultsText {
+    text-align: center;
+    color: var(--accent-color);
+    font-weight: 500;
+    font-size: 1.2em;
 }
 
 
@@ -198,6 +214,36 @@ td {
         display: none;
     }
 
+    nav.menu-open {
+        #barraBusqueda{
+            width: 100%;
+            border-top: 1px solid var(--white);
+            border-bottom: 1px solid var(--white);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        #botonUsuario{
+            display: flex;
+            gap: 15px;
+            margin-left: auto;
+            padding: 10px;
+            p {
+                color: var(--white);
+                font-size: 1.6em;
+                font-weight: 500;
+            }
+            img{
+                width: 35px;
+                height: 35px;
+                overflow: visible;
+                background-color: var(--accent-color);
+                padding: 10px;
+                border-radius: 100%;
+            }
+        }
+    }
+
     nav {
 
         display: flex;
@@ -243,6 +289,45 @@ td {
     #botonUsuario {
         display: none;
     }
+
+    nav.menu-open {
+        #barraBusqueda{
+            width: 100%;
+            border-top: 1px solid var(--white);
+            border-bottom: 1px solid var(--white);
+            padding: 10px;
+            display: flex;
+        }
+        #botonUsuario{
+            display: flex;
+            gap: 25px;
+            margin-left: auto;
+            p {
+                color: var(--white);
+                font-size: 1.6em;
+                font-weight: 500;
+
+            }
+            img{
+                width: 55px;
+                height: 55px;
+                overflow: visible;
+                background-color: var(--accent-color);
+                padding: 10px;
+                border-radius: 100%;
+            }
+        }
+    }
+
+    #mobileMenu{
+        width: 100px;
+        height: 100px;
+
+        img {
+            width: 50px;
+        }
+    }
+
     nav {
 
         display: flex;
@@ -280,6 +365,10 @@ td {
     #mobileMenu {
         display: none;
     }
+    #profileTextButton{
+        display: none;
+    }
+    
 }
 
 /* Escritorio grande: 1025px - 1200px (opcional, casi igual al base) */
@@ -287,4 +376,7 @@ td {
     #mobileMenu {
         display: none;
     }
+    #profileTextButton{
+            display: none;
+        }
 }
