@@ -1,4 +1,25 @@
+// Función normal (window o undefined en modo estricto)
+function metodoThisNormal() {
+    console.log("this:", this);
+}
 
+// Función en objeto, apunta a objeto
+const objetoPrueba = {
+    nombre: "objeto",
+    metodoThisObjeto: function() {
+        console.log("this de objeto:", this);
+    }
+};
+
+// funcion flecha, apunta al contexto en donde este
+const metodoThisFlecha = () => {
+    console.log("this de flecha:", this);
+};
+
+// Llama a las funciones para ver resultado en consola
+metodoThisNormal();
+objetoPrueba.metodoThisObjeto();
+metodoThisFlecha();
 
 const urlParams = new URLSearchParams(window.location.search);
 let lang = urlParams.get("lang");
