@@ -15,12 +15,11 @@ session_opts = {
 
 def atiApp(environ, start_response):
     #Punto de entrada de la aplicación WSGI
-    status = '200 OK'
-    headers = [('Content-Type','text/html'),('Set-Cookie','Hotel?=Trivago')]
-    start_response(status,headers)
 
+    # Obtener la ruta de la solicitud
     path = environ.get('PATH_INFO', '/')
 
+    # Obtener el idioma de la sesión o establecerlo en 'es' por defecto
     lang = environ['beaker.session'].get('lang', 'es')
 
     # Si se cambia el parametro en al URL, actualizarlo
@@ -33,7 +32,19 @@ def atiApp(environ, start_response):
         lang = new_lang
 
     if(path == '/index.py'):
+        status = '200 OK'
+        headers = [('Content-Type','text/html'),('Set-Cookie','lang='+lang+'; Path=/;SameSite=Lax')]
+        start_response(status,headers)
         return renderIndex(environ)
+    
+    elif(path == '/profiles'):
+        search = parse_qs(environ.get('QUERY_STRING', '')).get('search', [None])[0]
+        profiles = getProfiles(search)
+        return [json.dumps(profiles).encode('utf-8')]
+    
+    elif(path == '/config'):
+        conf = json.load(open(f'/var/www/html/data/config{lang}.json'))
+        return [json.dumps(conf).encode('utf-8')]
 
     elif(path == '/somethingelse'):
         return [b'anythingelse']
@@ -56,7 +67,7 @@ def getProfiles(search=None):
 
 def getProfileByCI(ci):
      
-     return json.load(open(f'/var/www/html{ci}/profile.json'))
+     return json.load(open(f'/var/www/html/{ci}/profile.json'))
 
 
 def renderIndex(environ):
@@ -72,7 +83,6 @@ def renderIndex(environ):
             <link rel="icon" sizes="192x192" href="/icon/cropped-logonuevo-192x192.png">
             <link rel="stylesheet" href="/css/style.css">
             <title>ATI[UCV]Log 2026-1</title>
-            <script type="text/javascript" src="/data/index.json"></script>
             <script type="text/javascript" src="/js/index.js" defer></script>
         </head>
         <body>

@@ -21,70 +21,70 @@ metodoThisNormal();
 objetoPrueba.metodoThisObjeto();
 metodoThisFlecha();
 
-const urlParams = new URLSearchParams(window.location.search);
-let lang = urlParams.get("lang");
-let search = urlParams.get("search");
+// Función para obtener el valor de una cookie
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
-if( lang === null )
-    lang = 'ES';
-else
-    lang = lang.toUpperCase();
+// Leer el idioma
+const lang = getCookie('lang');
+
+if (!lang) {
+    lang = 'es';
+}
 
 const confScript = document.createElement("script");
 
-confScript.src =  `/conf/config${lang}.json`
-
-let profilesCards;
-let noResultsText;
-
-confScript.onload = function() {
-
-    
-    document.getElementById("appTitle").innerHTML = `${config.site[0]}<sub>${config.site[1]}</sub>${config.site[2]}`;
-
-
-    document.getElementById("searchBar").placeholder = config.name + "...";
-
-    document.getElementById("searchButton").innerHTML = config.search;
-
-    document.getElementById("semester").innerHTML = config.semester;
-
-    document.getElementById("footerText").innerHTML = config.copyRight;
-
-    document.getElementById("profileTextButton").innerHTML = config.profile;
-
-    noResultsText = config.results;
-
-    const profilesContainer = document.getElementById("perfiles");
-    profilesCards = profiles;
-
-    for (let i = 0; i < profilesCards.length; i++) {
-        const profile = profilesCards[i];
-        
-        profilesContainer.innerHTML += `<div id="${profile.ci}" class="perfil">  <picture> <source media="(max-width: 480px)" srcset="/${profile.ci}/${profile.ci}Small${profile.image_ext}"> <source media="(min-width: 481px)" srcset="/${profile.ci}/${profile.ci}Big${profile.image_ext}"> <img src="/${profile.ci}/${profile.ci}Big${profile.image_ext}" alt="${profile.name}"> </picture> <h2>${profile.name}</h2> </div> `;
-
-    }
-
-    profilesContainer.addEventListener("click", (event) => {
-        const profileCard = event.target.closest(".perfil");
-        if (profileCard) {
-            const ci = profileCard.id;
-            window.location.href = `profile.html?ci=${ci}&lang=${lang}`;
-        }
+fetch('/conf')
+    .then(response => response.json())
+    .then(data => {
+        config = data;
+        document.getElementById("appTitle").innerHTML = `${config.site[0]}<sub>${config.site[1]}</sub>${config.site[2]}`;
+        document.getElementById("searchBar").placeholder = config.name + "...";
+        document.getElementById("searchButton").innerHTML = config.search;
+        document.getElementById("semester").innerHTML = config.semester;
+        document.getElementById("footerText").innerHTML = config.copyRight;
+        document.getElementById("profileTextButton").innerHTML = config.profile;
+        let noResultsText = config.results;
     });
 
-    if(search !== null){
-        document.getElementById("searchBar").value = search;
-        searchProfile();
-    }
-    
-}
+fetch('/profiles')
+    .then(response => response.json())
+    .then(data => {
+        profiles = data;
 
-document.head.appendChild(confScript);
+        const profilesContainer = document.getElementById("perfiles");
+        let profilesCards = profiles;
+
+        for (let i = 0; i < profilesCards.length; i++) {
+            const profile = profilesCards[i];
+            
+            profilesContainer.innerHTML += `<div id="${profile.ci}" class="perfil">  <picture> <source media="(max-width: 480px)" srcset="/${profile.ci}/${profile.ci}Small${profile.image_ext}"> <source media="(min-width: 481px)" srcset="/${profile.ci}/${profile.ci}Big${profile.image_ext}"> <img src="/${profile.ci}/${profile.ci}Big${profile.image_ext}" alt="${profile.name}"> </picture> <h2>${profile.name}</h2> </div> `;
+
+        }
+
+        profilesContainer.addEventListener("click", (event) => {
+            const profileCard = event.target.closest(".perfil");
+            if (profileCard) {
+                
+                //--------------------------AQUI VAMOS AL PERFIL--------------------------
+
+            }
+        });
+
+    })
+    .catch(error => {
+        console.error('Error al obtener los perfiles:', error);
+    });
+
+
 
 document.getElementById("searchButton").addEventListener("click", searchProfile);
 
 document.getElementById("searchBar").addEventListener("keyup",searchProfile);
+
 
 function searchProfile(){
     
@@ -92,33 +92,38 @@ function searchProfile(){
     let text = document.getElementById("searchBar").value;
 
     if(text === ""){
-        for(let i=0; i<profilesCards.length; i++){
-            document.getElementById(`${profilesCards[i].ci}`).style.display = "";
-        }
         return;
     }
         
-    let anyResults = false;
+    fetch('/profiles?search='+text)
+    .then(response => response.json())
+    .then(data => {
+        profiles = data;
 
-    for(let i=0; i<profilesCards.length; i++){
+        const profilesContainer = document.getElementById("perfiles");
+        profilesContainer.innerHTML = ""; // Limpiar el contenedor antes de agregar los nuevos perfiles
+        let profilesCards = profiles;
 
-        if(!profilesCards[i].name.includes(text)){
-            document.getElementById(`${profilesCards[i].ci}`).style.display = "none";
-        }else{
-            document.getElementById(`${profilesCards[i].ci}`).style.display = "";
-            anyResults = true;
+        for (let i = 0; i < profilesCards.length; i++) {
+            const profile = profilesCards[i];
+            
+            profilesContainer.innerHTML += `<div id="${profile.ci}" class="perfil">  <picture> <source media="(max-width: 480px)" srcset="/${profile.ci}/${profile.ci}Small${profile.image_ext}"> <source media="(min-width: 481px)" srcset="/${profile.ci}/${profile.ci}Big${profile.image_ext}"> <img src="/${profile.ci}/${profile.ci}Big${profile.image_ext}" alt="${profile.name}"> </picture> <h2>${profile.name}</h2> </div> `;
+
         }
 
-    }
+        profilesContainer.addEventListener("click", (event) => {
+            const profileCard = event.target.closest(".perfil");
+            if (profileCard) {
+                
+                //--------------------------AQUI VAMOS AL PERFIL--------------------------
 
+            }
+        });
 
-    if(!anyResults){
-        document.getElementById("noResultsText").innerHTML = ` ${noResultsText} <strong> ${text} </strong> `;
-
-        document.getElementById("noResultsText").style.display = "";
-    }else{
-        document.getElementById("noResultsText").style.display = "none";
-    }
+    })
+    .catch(error => {
+        console.error('Error al obtener los perfiles:', error);
+    });
 
     
 }
@@ -127,4 +132,4 @@ document.getElementById("mobileMenu").addEventListener("click",(event) => {
 
     document.querySelector("nav").classList.toggle("menu-open");
 
-})
+})*/
