@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install python3 -y
 RUN apt install apache2 apache2-utils ssl-cert libapache2-mod-wsgi-py3 -y
 #Instalamos si no existen ya las cosas de apache y el mod-wsgi
 
+RUN pip3 install beaker-py --break-system-packages
+
 RUN a2enmod wsgi
 #Habilitamos el modulo wsgi
 
@@ -21,6 +23,6 @@ RUN a2enconf mod-wsgi
 
 RUN apache2ctl restart
 
-COPY index.py  /var/www/html
+COPY . /var/www/html
 
 EXPOSE 80
