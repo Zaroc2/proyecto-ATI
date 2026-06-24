@@ -12,7 +12,6 @@ session_opts = {
 
 
 
-application = SessionMiddleware(atiApp, session_opts)
 
 def atiApp(environ, start_response):
     #Punto de entrada de la aplicación WSGI
@@ -45,7 +44,7 @@ def atiApp(environ, start_response):
 
 
 def getProfiles(search=None):
-    profiles = json.load(open('data/index.json'))
+    profiles = json.load(open('/var/www/html/data/index.json'))
     if search:
         search = search.lower() 
         profilesSearch = []
@@ -57,7 +56,7 @@ def getProfiles(search=None):
 
 def getProfileByCI(ci):
      
-     return json.load(open(f'{ci}/profile.json'))
+     return json.load(open(f'/var/www/html{ci}/profile.json'))
 
 
 def renderIndex(environ):
@@ -74,7 +73,7 @@ def renderIndex(environ):
             <link rel="stylesheet" href="/css/style.css">
             <title>ATI[UCV]Log 2026-1</title>
             <script type="text/javascript" src="/data/index.json"></script>
-            <script type="text/javascript" src="js/index.js" defer></script>
+            <script type="text/javascript" src="/js/index.js" defer></script>
         </head>
         <body>
 
@@ -103,4 +102,6 @@ def renderIndex(environ):
         </html>
     '''
 
-    return html.encode('utf-8')
+    return [html.encode('utf-8')]
+
+application = SessionMiddleware(atiApp, session_opts)
