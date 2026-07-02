@@ -29,15 +29,16 @@ function getCookie(name) {
 }
 
 // Leer el idioma
-const lang = getCookie('lang');
+let lang = getCookie('lang');
 
 if (!lang) {
-    lang = 'es';
+    lang = 'ES';
 }
 
-const confScript = document.createElement("script");
+var noResultsText;
+var config;
 
-fetch('/conf')
+fetch('/ATI/config')
     .then(response => response.json())
     .then(data => {
         config = data;
@@ -47,60 +48,122 @@ fetch('/conf')
         document.getElementById("semester").innerHTML = config.semester;
         document.getElementById("footerText").innerHTML = config.copyRight;
         document.getElementById("profileTextButton").innerHTML = config.profile;
-        let noResultsText = config.results;
+        noResultsText = config.results;
     });
 
-fetch('/profiles')
-    .then(response => response.json())
-    .then(data => {
-        profiles = data;
 
-        const profilesContainer = document.getElementById("perfiles");
-        let profilesCards = profiles;
+function fetchProfiles(){
 
-        for (let i = 0; i < profilesCards.length; i++) {
-            const profile = profilesCards[i];
-            
-            profilesContainer.innerHTML += `<div id="${profile.ci}" class="perfil">  <picture> <source media="(max-width: 480px)" srcset="/${profile.ci}/${profile.ci}Small${profile.image_ext}"> <source media="(min-width: 481px)" srcset="/${profile.ci}/${profile.ci}Big${profile.image_ext}"> <img src="/${profile.ci}/${profile.ci}Big${profile.image_ext}" alt="${profile.name}"> </picture> <h2>${profile.name}</h2> </div> `;
+    fetch('/ATI/profiles')
+        .then(response => response.json())
+        .then(data => {
 
-        }
+            profiles = data;
 
-        profilesContainer.addEventListener("click", (event) => {
-            const profileCard = event.target.closest(".perfil");
-            if (profileCard) {
+            const profilesContainer = document.getElementById("perfiles");
+            let profilesCards = profiles;
+
+            for (let i = 0; i < profilesCards.length; i++) {
+                const profile = profilesCards[i];
                 
-                //--------------------------AQUI VAMOS AL PERFIL--------------------------
+                profilesContainer.innerHTML += `<div id="${profile.ci}" class="perfil">  <picture> <source media="(max-width: 480px)" srcset="/${profile.ci}/${profile.ci}Small${profile.image_ext}"> <source media="(min-width: 481px)" srcset="/${profile.ci}/${profile.ci}Big${profile.image_ext}"> <img src="/${profile.ci}/${profile.ci}Big${profile.image_ext}" alt="${profile.name}"> </picture> <h2>${profile.name}</h2> </div> `;
 
             }
+
+        })
+        .catch(error => {
+            console.error('Error al obtener los perfiles:', error);
         });
-
-    })
-    .catch(error => {
-        console.error('Error al obtener los perfiles:', error);
-    });
-
-
+}
 
 document.getElementById("searchButton").addEventListener("click", searchProfile);
 
 document.getElementById("searchBar").addEventListener("keyup",searchProfile);
 
+fetchProfiles()
 
-function searchProfile(){
-    
-    
+function searchProfile(e = null){
+
     let text = document.getElementById("searchBar").value;
+    let profilesContainer = document.getElementById("perfiles");
+
+    if(document.querySelector("section").classList.contains("contenedorPerfil")){
+        if(e?.type === "click" || (e?.type === "keyup" && e?.key === "Enter")){
+            //Si tiene la clase de contenedor, es porque esta en un perfil, y solo se activara si es por click
+            document.querySelector("section").classList.toggle("contenedorPerfil");
+            document.querySelector("section").innerHTML = '<h1 id="semester"></h1><div id="perfiles"></div><p id="noResultsText"></p>';
+            let text = document.getElementById("searchBar").value;
+            profilesContainer = document.getElementById("perfiles");
+            console.log("searchProfile ("+text+")");
+        
+            fetch('/ATI/profiles?search='+encodeURIComponent(text))
+            .then(response => response.json())
+            .then(data => {
+
+                if(data.length === 0){
+                    profilesContainer.innerHTML = ""; // Limpiar el contenedor antes de re-agregar los perfiles
+                    document.getElementById("noResultsText").innerHTML = `${noResultsText} <strong> ${text} </strong>`;
+                    document.getElementById("noResultsText").style.display = "";
+                    return;
+                }
+                else{
+                    document.getElementById("noResultsText").style.display = "none";
+                }
+
+                profiles = data;
+
+                profilesContainer.innerHTML = ""; // Limpiar el contenedor antes de agregar los nuevos perfiles
+                let profilesCards = profiles;
+
+                for (let i = 0; i < profilesCards.length; i++) {
+                    const profile = profilesCards[i];
+                    
+                    profilesContainer.innerHTML += `<div id="${profile.ci}" class="perfil">  <picture> <source media="(max-width: 480px)" srcset="/${profile.ci}/${profile.ci}Small${profile.image_ext}"> <source media="(min-width: 481px)" srcset="/${profile.ci}/${profile.ci}Big${profile.image_ext}"> <img src="/${profile.ci}/${profile.ci}Big${profile.image_ext}" alt="${profile.name}"> </picture> <h2>${profile.name}</h2> </div> `;
+
+                }
+
+            })
+            .catch(error => {
+                console.error('Error al obtener los perfiles:', error);
+            });
+            profilesContainer.addEventListener("click", (event) => {
+                const profileCard = event.target.closest(".perfil");
+                console.log("En la funcion")
+                if (profileCard) {     
+                    console.log("YEndo al fetchCI")
+                    fetchCI(profileCard.id);
+                    }
+            });
+            return;
+        } else {
+            return;
+        }
+    }
 
     if(text === ""){
+        profilesContainer.innerHTML = ""; // Limpiar el contenedor antes de re-agregar los perfiles
+        fetchProfiles()
         return;
     }
+
+    console.log("searchProfile ("+text+")");
         
-    fetch('/profiles?search='+text)
+    fetch('/ATI/profiles?search='+encodeURIComponent(text))
     .then(response => response.json())
     .then(data => {
+
+        if(data.length === 0){
+            profilesContainer.innerHTML = ""; // Limpiar el contenedor antes de re-agregar los perfiles
+            document.getElementById("noResultsText").innerHTML = `${noResultsText} <strong> ${text} </strong>`;
+            document.getElementById("noResultsText").style.display = "";
+            return;
+        }
+        else{
+            document.getElementById("noResultsText").style.display = "none";
+        }
+
         profiles = data;
 
-        const profilesContainer = document.getElementById("perfiles");
         profilesContainer.innerHTML = ""; // Limpiar el contenedor antes de agregar los nuevos perfiles
         let profilesCards = profiles;
 
@@ -111,15 +174,6 @@ function searchProfile(){
 
         }
 
-        profilesContainer.addEventListener("click", (event) => {
-            const profileCard = event.target.closest(".perfil");
-            if (profileCard) {
-                
-                //--------------------------AQUI VAMOS AL PERFIL--------------------------
-
-            }
-        });
-
     })
     .catch(error => {
         console.error('Error al obtener los perfiles:', error);
@@ -127,9 +181,51 @@ function searchProfile(){
 
     
 }
+let profilesContainer = document.getElementById("perfiles");
+profilesContainer.addEventListener("click", (event) => {
+    const profileCard = event.target.closest(".perfil");
+    console.log("En la funcion")
+    if (profileCard) {     
+        console.log("YEndo al fetchCI")
+        fetchCI(profileCard.id);
+        }
+});
+
+document.getElementById("appTitle").addEventListener("click", () => {
+
+    if(document.querySelector("section").classList.contains("contenedorPerfil")){
+        document.querySelector("section").classList.toggle("contenedorPerfil");
+    }
+    document.querySelector("section").innerHTML = '<h1 id="semester"></h1><div id="perfiles"></div><p id="noResultsText"></p>';
+    fetchProfiles();
+    let profilesContainer = document.getElementById("perfiles");
+    profilesContainer.addEventListener("click", (event) => {
+        const profileCard = event.target.closest(".perfil");
+        console.log("En la funcion")
+        if (profileCard) {     
+            console.log("YEndo al fetchCI")
+            fetchCI(profileCard.id);
+            }
+    });
+})
 
 document.getElementById("mobileMenu").addEventListener("click",(event) => {
 
     document.querySelector("nav").classList.toggle("menu-open");
 
-})*/
+})
+
+function fetchCI(ci) {
+
+    fetch('/ATI/p?ci='+encodeURIComponent(ci))
+    .then(response => response.text())
+    .then(html => {
+        document.querySelector("section").innerHTML =  html;
+        document.querySelector("section").classList.toggle("contenedorPerfil")
+        setTexts();     
+    })
+    .catch(error => {
+            console.error('Error al obtener el perfil', error);
+        });
+
+}
